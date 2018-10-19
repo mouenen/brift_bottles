@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  resources :comments
-  resources :bottles
+
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
   resources :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :bottles do
+    resources :comments, only: %i[show create update destroy]
+  end
+  root to: 'bottles#index'
 end
