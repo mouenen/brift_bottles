@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class Bottle < ApplicationRecord
-    
   belongs_to :user, foreign_key: 'user_id'
   has_many :comments, dependent: :destroy
 

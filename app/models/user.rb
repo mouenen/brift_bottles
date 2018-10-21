@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   attr_writer :login
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
-  
+
   has_many :bottles, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -12,7 +14,7 @@ class User < ApplicationRecord
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      where(conditions).where(['lower(name) = :value OR lower(email) = :value', { value: login.downcase }]).first
     else
       if conditions[:name].nil?
         where(conditions).first
@@ -23,12 +25,10 @@ class User < ApplicationRecord
   end
 
   def validate_name
-    if User.where(email: name).exists?
-      errors.add(:name, :invalid)
-    end
+    errors.add(:name, :invalid) if User.where(email: name).exists?
   end
 
   def login
-    @login || self.name || self.email
+    @login || name || email
   end
 end

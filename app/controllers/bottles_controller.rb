@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BottlesController < ApplicationController
-  before_action :set_bottle, only: [:show, :edit, :update, :destroy]
+  before_action :set_bottle, only: %i[show edit update destroy]
 
   # GET /bottles
   # GET /bottles.json
@@ -9,8 +11,7 @@ class BottlesController < ApplicationController
 
   # GET /bottles/1
   # GET /bottles/1.json
-  def show
-  end
+  def show; end
 
   # GET /bottles/new
   def new
@@ -18,8 +19,7 @@ class BottlesController < ApplicationController
   end
 
   # GET /bottles/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bottles
   # POST /bottles.json
@@ -62,13 +62,14 @@ class BottlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bottle
-      @bottle = Bottle.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bottle_params
-      params.fetch(:bottle, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bottle
+    @bottle = Bottle.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def bottle_params
+    params.fetch(:bottle, {})
+  end
 end
