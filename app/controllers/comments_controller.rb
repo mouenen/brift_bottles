@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   # GET /comments
@@ -10,6 +11,11 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.json
   def show
+    @comments = if params[:bottle_id]
+      Comment.where(bottle_id: params[:bottle_id])
+    else
+      Comment.all
+    end
   end
 
   # GET /comments/new

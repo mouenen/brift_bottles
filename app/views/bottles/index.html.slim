@@ -1,19 +1,11 @@
-h1 Listing bottles
+h1 drift bottles
 
-table
-  thead
-    tr
-      th
-      th
-      th
 
-  tbody
-    - @bottles.each do |bottle|
-      tr
-        td = link_to 'Show', bottle
-        td = link_to 'Edit', edit_bottle_path(bottle)
-        td = link_to 'Destroy', bottle, data: { confirm: 'Are you sure?' }, method: :delete
 
-br
-
-= link_to 'New Bottle', new_bottle_path
+= link_to 'Throw a bottle', bottles_path
+| |
+= link_to 'Pick up a bottle', new_bottle_path
+| |
+= link_to  "Publish your comment", bottle_comment_path
+| |
+= link_to  "Show all comments", bottle_comments_path
